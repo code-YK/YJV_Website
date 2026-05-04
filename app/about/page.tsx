@@ -41,24 +41,24 @@ const stats = [
 
 const team = [
   {
-    name: "Yash Jain",
-    role: "Founder & CEO",
-    bio: "Visionary entrepreneur with 10+ years in AI and automation.",
+    name: "Jainam Mota",
+    role: "Co-Founder & CEO",
+    bio: "Driving the vision and strategy behind YJ Ventures' AI-powered automation solutions.",
   },
   {
-    name: "Priya Sharma",
-    role: "CTO",
-    bio: "Former tech lead at major SaaS companies, AI/ML expert.",
+    name: "Yatrik Patel",
+    role: "Co-Founder",
+    bio: "Building scalable business operations and partnerships for growth.",
   },
   {
-    name: "Rahul Mehta",
-    role: "Head of Product",
-    bio: "Product strategist focused on user-centric design.",
+    name: "Kunj Shukla",
+    role: "AI/ML Developer",
+    bio: "Designing and developing intelligent machine learning models and AI pipelines.",
   },
   {
-    name: "Anita Desai",
-    role: "Head of Customer Success",
-    bio: "Dedicated to ensuring every client achieves their goals.",
+    name: "Kuldeep Yadav",
+    role: "AI/ML Developer",
+    bio: "Engineering robust AI solutions for real-world automation challenges.",
   },
 ]
 
