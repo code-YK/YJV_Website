@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
+import { Chatbot } from '@/components/chatbot'
 import './globals.css'
 
 const inter = Inter({ 
@@ -15,11 +16,10 @@ export const metadata: Metadata = {
   generator: 'yk',
   icons: {
     icon: [
-      { url: '/Salford_Icon.ico', media: '(prefers-color-scheme: light)' },
-      { url: '/Salford_Icon.ico', media: '(prefers-color-scheme: dark)' },
-      { url: '/Salford_Icon.ico', type: 'image/svg+xml' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
     ],
-    apple: '/Salford_Icon.ico',
+    apple: '/icon.svg',
   },
 }
 
@@ -38,6 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Chatbot />
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>
       </body>

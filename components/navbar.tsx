@@ -32,12 +32,7 @@ const navigation = [
   },
   { name: "Case Studies", href: "/case-studies" },
   { name: "About", href: "/about" },
-  {
-    name: "Contact",
-    href: "#",
-    isModal: true,
-    modalTab: "contact" as const,
-  },
+  { name: "Contact", href: "/contact" },
 ]
 
 function ThemeToggle() {
@@ -126,22 +121,13 @@ export function Navbar() {
                 onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                {item.isModal ? (
-                  <button
-                    onClick={() => openModal(item.modalTab!)}
-                    className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                  </button>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {item.name}
-                    {item.dropdown && <ChevronDown className="h-4 w-4" />}
-                  </Link>
-                )}
+                <Link
+                  href={item.href}
+                  className="flex items-center gap-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {item.name}
+                  {item.dropdown && <ChevronDown className="h-4 w-4" />}
+                </Link>
 
                 {item.dropdown && activeDropdown === item.name && (
                   <div className="absolute top-full left-0 pt-2 w-48">
@@ -180,22 +166,13 @@ export function Navbar() {
             <div className="space-y-1 px-6 py-4">
               {navigation.map((item) => (
                 <div key={item.name}>
-                  {item.isModal ? (
-                    <button
-                      onClick={() => openModal(item.modalTab!)}
-                      className="block w-full text-left py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
-                    >
-                      {item.name}
-                    </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="block py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
+                  <Link
+                    href={item.href}
+                    className="block py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
                   {item.dropdown && (
                     <div className="pl-4 space-y-1">
                       {item.dropdown.map((subItem) => (
@@ -217,9 +194,11 @@ export function Navbar() {
                 <Button
                   variant="outline"
                   className="w-full"
-                  onClick={() => openModal("contact")}
+                  asChild
                 >
-                  Contact
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                    Contact
+                  </Link>
                 </Button>
                 <Button
                   className="w-full bg-gradient-to-r from-primary to-accent text-primary-foreground"

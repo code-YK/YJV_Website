@@ -50,7 +50,7 @@ export function CTA() {
             <Button
               size="lg"
               onClick={() => setModalOpen(true)}
-              className="bg-white text-primary hover:bg-white/90 px-8 shadow-lg cursor-pointer"
+              className="bg-white text-[#1D4ED8] hover:bg-white/90 px-8 shadow-lg cursor-pointer"
             >
               Book a Free Demo
               <ArrowRight className="ml-2 h-4 w-4" />

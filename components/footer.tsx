@@ -38,9 +38,14 @@ export function Footer() {
               </div>
               <span className="font-semibold text-lg">YJ Ventures</span>
             </div>
-            <p className="text-sm text-background/70 max-w-xs">
+            <p className="text-sm text-background/70 max-w-xs mb-4">
               Automate conversations, accelerate growth with intelligent AI-powered systems.
             </p>
+            <div className="space-y-2 text-sm text-background/70">
+              <p>📞 <a href="tel:+916352998995" className="hover:text-background transition-colors">+91 6352998995</a></p>
+              <p>✉️ <a href="mailto:info@yjventures.in" className="hover:text-background transition-colors">info@yjventures.in</a></p>
+              <p>📍 4-D, Vardan Tower, Navrangpura, Ahmedabad</p>
+            </div>
           </div>
 
           {/* Solutions */}

@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Mail, Phone, MapPin, MessageSquare, Calendar, Send, Check } from "lucide-react"
+import { ContactDemoModal } from "@/components/contact-demo-modal"
 import anime from "@/lib/anime"
 
 export default function ContactPage() {
@@ -19,6 +20,7 @@ export default function ContactPage() {
     phone: "",
     message: "",
   })
+  const [demoModalOpen, setDemoModalOpen] = useState(false)
 
   useEffect(() => {
     anime({
@@ -100,8 +102,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground">Email</h3>
-                    <a href="mailto:hello@yjventures.com" className="text-muted-foreground hover:text-primary transition-colors">
-                      hello@yjventures.com
+                    <a href="mailto:info@yjventures.in" className="text-muted-foreground hover:text-primary transition-colors">
+                      info@yjventures.in
                     </a>
                   </div>
                 </div>
@@ -112,8 +114,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground">Phone</h3>
-                    <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                      +1 (234) 567-890
+                    <a href="tel:+916352998995" className="text-muted-foreground hover:text-primary transition-colors">
+                      +91 6352998995
                     </a>
                   </div>
                 </div>
@@ -125,8 +127,8 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-medium text-foreground">Office</h3>
                     <p className="text-muted-foreground">
-                      123 Innovation Drive<br />
-                      Tech City, TC 12345
+                      4-D, Vardan Tower<br />
+                      Navrangpura, Ahmedabad
                     </p>
                   </div>
                 </div>
@@ -135,7 +137,7 @@ export default function ContactPage() {
               {/* Quick Actions */}
               <div className="pt-8 border-t border-border space-y-4">
                 <a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/916352998995"
                   className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-lg bg-emerald-500 flex items-center justify-center">
@@ -147,9 +149,9 @@ export default function ContactPage() {
                   </div>
                 </a>
 
-                <div
-                  id="demo"
-                  className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border"
+                <button
+                  onClick={() => setDemoModalOpen(true)}
+                  className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors w-full text-left cursor-pointer"
                 >
                   <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-white" />
@@ -158,7 +160,7 @@ export default function ContactPage() {
                     <p className="font-medium text-foreground">Schedule a Demo</p>
                     <p className="text-sm text-muted-foreground">30-min product walkthrough</p>
                   </div>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -285,6 +287,12 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <ContactDemoModal
+        isOpen={demoModalOpen}
+        onClose={() => setDemoModalOpen(false)}
+        defaultTab="demo"
+      />
 
       <Footer />
     </main>
