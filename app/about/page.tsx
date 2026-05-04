@@ -46,7 +46,7 @@ const team = [
     bio: "Driving the vision and strategy behind YJ Ventures' AI-powered automation solutions.",
   },
   {
-    name: "Yatrik Patel",
+    name: "Yatrik Chauhan",
     role: "Co-Founder",
     bio: "Building scalable business operations and partnerships for growth.",
   },
