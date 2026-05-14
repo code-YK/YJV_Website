@@ -11,8 +11,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'YJ Ventures | AI Automation & WhatsApp Solutions',
-  description: 'Automate conversations, accelerate growth. Capture leads, engage customers, and automate workflows with intelligent WhatsApp and AI-powered systems.',
+  metadataBase: new URL('https://www.yjventures.in'),
+  title: {
+    default: 'YJVentures | AI Communication and Automation Solutions',
+    template: '%s | YJVentures',
+  },
+  description: 'YJVentures builds AI-powered communication, automation, appointment management, customer support, and business workflow solutions.',
+  openGraph: {
+    type: 'website',
+    url: 'https://www.yjventures.in',
+    siteName: 'YJVentures',
+    title: 'YJVentures | AI Communication and Automation Solutions',
+    description: 'YJVentures builds AI-powered communication, automation, appointment management, customer support, and business workflow solutions.',
+  },
   generator: 'yk',
   icons: {
     icon: [
