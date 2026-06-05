@@ -92,7 +92,7 @@ export function LeafHero({
     <section className="relative px-5 pb-16 pt-32 md:px-12 md:pb-24 md:pt-40">
       <div className="mx-auto max-w-6xl">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h1 className="mt-6 max-w-4xl font-[family-name:var(--font-space-grotesk)] text-5xl font-bold leading-[1.04] tracking-tight text-white md:text-7xl">
+        <h1 className="mt-6 max-w-4xl font-[family-name:var(--font-space-grotesk)] text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-7xl md:leading-[1.04]">
           {title}
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-white/65">{description}</p>

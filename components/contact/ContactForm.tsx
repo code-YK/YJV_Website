@@ -270,7 +270,7 @@ export function ContactForm() {
 
 function inputCls(hasError: boolean) {
   return cn(
-    "w-full rounded-lg border bg-black/40 px-4 py-2.5 text-sm text-yj-on-surface placeholder:text-[var(--text-muted)] transition-colors",
+    "w-full min-h-11 rounded-lg border bg-black/40 px-4 py-2.5 text-sm text-yj-on-surface placeholder:text-[var(--text-muted)] transition-colors",
     "focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)] focus:ring-offset-2 focus:ring-offset-black",
     hasError
       ? "border-red-500/60"

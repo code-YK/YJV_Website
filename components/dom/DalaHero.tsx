@@ -29,38 +29,133 @@ interface ScrollTriggerLike {
   refresh(): void;
 }
 
-/** Faint static node-mesh backdrop — the LCP paint and no-WebGL fallback. */
-const SM_PTS: [number, number][] = [
-  [12, 20], [28, 12], [44, 24], [62, 16], [78, 28], [88, 14],
-  [20, 46], [40, 52], [58, 44], [74, 56], [90, 48],
-  [16, 72], [34, 80], [52, 70], [70, 82], [86, 74],
-];
-const SM_EDGES: [number, number][] = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [0, 6], [2, 7], [3, 8], [4, 9],
-  [5, 10], [6, 7], [7, 8], [8, 9], [9, 10], [6, 11], [7, 12], [8, 13],
-  [9, 14], [10, 15], [11, 12], [12, 13], [13, 14], [14, 15],
-];
+/**
+ * Static 2D fallback that stands in for the WebGL morph (no-WebGL, ?webgl=off,
+ * reduced motion, and the pre-mount LCP paint). It evokes the particle field:
+ * a depth-sorted cluster of nodes drawn into a loose orb around a glowing core,
+ * with soft colour blooms behind it. Particle layout is generated once from a
+ * fixed seed so SSR and client markup match exactly (no hydration drift).
+ */
+function makeRng(seed: number): () => number {
+  let a = seed;
+  return () => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
-function StaticMesh() {
+interface FieldNode {
+  x: number;
+  y: number;
+  r: number;
+  o: number;
+  twinkle: boolean;
+  delay: number;
+}
+
+const FIELD: FieldNode[] = (() => {
+  const rng = makeRng(0x59_4a_56_31); // "YJV1"
+  const N = 64;
+  return Array.from({ length: N }, () => {
+    const ang = rng() * Math.PI * 2;
+    const rad = Math.pow(rng(), 1.7); // 0..1, denser toward the core
+    const depth = 1 - rad; // core nodes read as "closer": bigger + brighter
+    return {
+      x: 50 + Math.cos(ang) * rad * 33 + (rng() - 0.5) * 4,
+      y: 44 + Math.sin(ang) * rad * 26 + (rng() - 0.5) * 4,
+      r: 0.4 + depth * 0.95,
+      o: 0.3 + depth * 0.55,
+      twinkle: rng() > 0.62,
+      delay: rng() * 5,
+    };
+  });
+})();
+
+const FIELD_EDGES: [number, number, number][] = (() => {
+  const edges: [number, number, number][] = [];
+  for (let i = 0; i < FIELD.length; i++) {
+    for (let j = i + 1; j < FIELD.length; j++) {
+      const d = Math.hypot(FIELD[i].x - FIELD[j].x, FIELD[i].y - FIELD[j].y);
+      if (d < 8.5) edges.push([i, j, d]);
+    }
+  }
+  return edges;
+})();
+
+function StaticField({ motion }: { motion: boolean }) {
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-      className="h-full w-full opacity-60"
-    >
-      {SM_EDGES.map(([a, b], i) => (
-        <line
-          key={i}
-          x1={SM_PTS[a][0]} y1={SM_PTS[a][1]}
-          x2={SM_PTS[b][0]} y2={SM_PTS[b][1]}
-          stroke="#2dc4dc" strokeWidth={0.2} strokeOpacity={0.3}
-        />
-      ))}
-      {SM_PTS.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={0.6} fill="#22d3ee" fillOpacity={0.8} />
-      ))}
-    </svg>
+    <div className="absolute inset-0">
+      <style>{`
+        @keyframes hubFallbackDrift { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(0,-1.4%,0)} }
+        @keyframes hubFallbackPulse { 0%,100%{opacity:.45;transform:scale(1)} 50%{opacity:.8;transform:scale(1.07)} }
+        @keyframes hubFallbackTwinkle { 0%,100%{opacity:.15} 50%{opacity:1} }
+      `}</style>
+
+      {/* Soft colour blooms for depth. */}
+      <div
+        className="absolute left-1/2 top-[42%] h-[60vmin] w-[60vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(34,211,238,0.22) 0%, rgba(45,212,191,0.10) 38%, transparent 70%)",
+          filter: "blur(36px)",
+          animation: motion ? "hubFallbackPulse 9s ease-in-out infinite" : undefined,
+        }}
+      />
+      <div
+        className="absolute left-[34%] top-[58%] h-[34vmin] w-[34vmin] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(56,189,248,0.16) 0%, transparent 70%)",
+          filter: "blur(40px)",
+        }}
+      />
+      <div
+        className="absolute left-[68%] top-[30%] h-[30vmin] w-[30vmin] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%)",
+          filter: "blur(44px)",
+        }}
+      />
+
+      {/* Particle cluster. */}
+      <svg
+        aria-hidden
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 h-full w-full"
+      >
+        <g style={{ animation: motion ? "hubFallbackDrift 16s ease-in-out infinite" : undefined }}>
+          {FIELD_EDGES.map(([a, b, d], i) => (
+            <line
+              key={i}
+              x1={FIELD[a].x} y1={FIELD[a].y}
+              x2={FIELD[b].x} y2={FIELD[b].y}
+              stroke="#2dd4bf"
+              strokeWidth={0.13}
+              strokeOpacity={0.28 * (1 - d / 8.5)}
+            />
+          ))}
+          {FIELD.map((p, i) => (
+            <circle
+              key={i}
+              cx={p.x} cy={p.y} r={p.r}
+              fill={i % 5 === 0 ? "#67e8f9" : "#22d3ee"}
+              fillOpacity={p.o}
+              style={
+                motion && p.twinkle
+                  ? { animation: `hubFallbackTwinkle ${4 + p.delay}s ease-in-out ${p.delay}s infinite` }
+                  : undefined
+              }
+            />
+          ))}
+          {/* Bright core node — the "single idea". */}
+          <circle cx={50} cy={44} r={1.6} fill="#e6fbff" fillOpacity={0.95} />
+          <circle cx={50} cy={44} r={3.2} fill="none" stroke="#67e8f9" strokeWidth={0.2} strokeOpacity={0.5} />
+        </g>
+      </svg>
+    </div>
   );
 }
 
@@ -189,13 +284,14 @@ export function DalaHero() {
 
   return (
     <div ref={rootRef} data-dala-root className="relative w-full text-white" style={{ background: RADIAL_BG }}>
-      {/* Static SSR poster / no-WebGL fallback backdrop (fades as the canvas mounts). */}
+      {/* Static SSR poster / no-WebGL fallback (mirrors the canvas region; fades
+          out once the WebGL scene mounts). Confined to the hero via heroInView. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] transition-opacity duration-700"
-        style={{ opacity: enableWebGL && mounted ? 0 : 0.8 }}
+        className="pointer-events-none fixed inset-0 z-[1] transition-opacity duration-700"
+        style={{ opacity: enableWebGL && mounted ? 0 : heroInView ? 1 : 0 }}
       >
-        <StaticMesh />
+        <StaticField motion={enableMotion && !enableWebGL} />
       </div>
 
       {/* Full-bleed fixed morphing-particle canvas. */}
@@ -223,7 +319,7 @@ export function DalaHero() {
       {/* Landing panel */}
       <section className="relative z-[2] flex min-h-screen flex-col justify-center px-5 md:px-12">
         <div className="max-w-4xl">
-          <h1 className="font-[family-name:var(--font-space-grotesk)] text-6xl font-bold leading-[0.95] tracking-tight text-white [text-shadow:0_2px_40px_rgba(0,0,0,0.85)] md:text-8xl lg:text-9xl">
+          <h1 className="font-[family-name:var(--font-space-grotesk)] text-5xl font-bold leading-[1] tracking-tight text-white [text-shadow:0_2px_40px_rgba(0,0,0,0.85)] sm:text-6xl md:text-8xl md:leading-[0.95] lg:text-9xl">
             {TITLE_LINES.map((line, i) => (
               <span key={i} className="block overflow-hidden">
                 <span className="dala-line__inner block">
@@ -262,7 +358,7 @@ export function DalaHero() {
             </div>
 
             {/* Trust / stat row */}
-            <dl className="dala-landing__sub mt-12 flex flex-wrap gap-x-10 gap-y-4">
+            <dl className="dala-landing__sub mt-12 flex flex-wrap gap-x-8 gap-y-4 sm:gap-x-10">
               {STATS.map((s) => (
                 <div key={s.label}>
                   <dt className="font-[family-name:var(--font-space-grotesk)] text-3xl font-bold text-white md:text-4xl">

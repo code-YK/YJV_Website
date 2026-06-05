@@ -159,6 +159,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.4s ease, color 0.4s ease;
+  /* Safety net: never allow a stray wide element to introduce a horizontal
+     scrollbar on small screens. Vertical scroll/Lenis is unaffected. */
+  overflow-x: hidden;
 }
 
 ::selection {
