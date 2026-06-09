@@ -15,7 +15,7 @@ const PROMISES: Promise[] = [
   },
   {
     icon: "Rocket",
-    title: "4–6 week pilots",
+    title: "4 to 6 week pilots",
     body: "From kickoff to a measurable outcome in six weeks or less. No twelve-month black holes.",
   },
   {

@@ -22,7 +22,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     challenge:
       "Struggling to handle 200+ daily property inquiries across WhatsApp, email, and web forms with a small team, losing leads to slow response times.",
     solution:
-      "Deployed an AI chatbot across all channels to qualify inquiries, answer pricing and viewing questions, and book appointments automatically — with clean handoff to agents for hot leads.",
+      "Deployed an AI chatbot across all channels to qualify inquiries, answer pricing and viewing questions, and book appointments automatically, with clean handoff to agents for hot leads.",
     results: [
       "3x more qualified leads",
       "Sub-minute first response",
@@ -52,7 +52,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     challenge:
       "Spending over $50k/month on customer support with 24-hour response times during peak seasons for order inquiries, returns, and product questions.",
     solution:
-      "Rolled out AI support that understands the catalog, tracks orders, processes returns, and recommends products — escalating only complex cases to humans.",
+      "Rolled out AI support that understands the catalog, tracks orders, processes returns, and recommends products, escalating only complex cases to humans.",
     results: [
       "85% faster responses",
       "$30k/month support savings",

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const s = getSolution(slug);
   if (!s) return {};
-  return pageMetadata(s.name, s.description, `/solutions/${s.slug}`);
+  return pageMetadata(s.seoTitle ?? s.name, s.seoDescription ?? s.description, `/solutions/${s.slug}`);
 }
 
 export default async function SolutionPage({ params }: PageProps) {
@@ -37,7 +37,7 @@ export default async function SolutionPage({ params }: PageProps) {
 
       <Section>
         <SectionHead
-          eyebrow={`${s.num} — Overview`}
+          eyebrow={`${s.num} · Overview`}
           title={
             <>
               What {s.name.toLowerCase()}{" "}

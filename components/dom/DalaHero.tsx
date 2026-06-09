@@ -159,26 +159,27 @@ function StaticField({ motion }: { motion: boolean }) {
   );
 }
 
-const TITLE_LINES = ["Orchestrate", "your autonomous", "enterprise."];
+const TITLE_LINES = ["Your team is", "drowning in messages.", "We answer them."];
 
 const STATS: { value: string; label: string }[] = [
   { value: "40+", label: "Workflows shipped" },
   { value: "9", label: "Industries served" },
   { value: "24/7", label: "Autonomous uptime" },
+  { value: "5", label: "Continents of clients" },
 ];
 
 const BLOCKS: { heading: string; body: string }[] = [
   {
-    heading: "Scattered knowledge becomes one shared brain.",
-    body: "Your tools, data, and decisions are fragmented across a dozen systems, and the answers your team needs are buried somewhere in the gaps between them. We connect those systems into a single context every agent can reason over — so nothing gets lost between teams, and the right information is always one question away.",
+    heading: "Your systems don't talk. Your team pays for it.",
+    body: "Your tools, data, and decisions are scattered across a dozen platforms, and the answers your team needs sit buried in the gaps between them. Every handoff is a chance for something to get lost, and most of the time, something does. We connect those systems into a single context every AI agent can reason over, so the right information is always one question away.",
   },
   {
-    heading: "Then the noise clears.",
-    body: "Multi-agent workflows read that context, route the work, and act — with human-in-the-loop gates wherever revenue, PR, or compliance risk runs unattended. The repetitive busywork disappears into the background, and your people are left with the decisions that actually need a human.",
+    heading: "One shared brain. Then the noise clears.",
+    body: "Multi-agent workflows read that context, route the work, and act, with human-in-the-loop checkpoints wherever revenue, compliance, or reputation is on the line. The repetitive busywork fades into the background, and your people are left with the decisions that actually need judgment.",
   },
   {
-    heading: "And re-forms into a single bright idea.",
-    body: "What was manual, brittle, and slow becomes one intelligent ecosystem — observable, cost-aware, and evaluated from sprint one. It compounds instead of cracking under load, getting more capable as it learns your business rather than more fragile as it grows.",
+    heading: "An ecosystem that compounds instead of cracking.",
+    body: "What was manual, brittle, and slow becomes one intelligent system: observable, cost-aware, and evaluated from sprint one. It gets more capable as it learns your business, not more fragile as it grows.",
   },
 ];
 
@@ -335,25 +336,26 @@ export function DalaHero() {
 
           <div className="mt-8 max-w-xl">
             <p className="dala-landing__sub font-[family-name:var(--font-space-mono)] text-[11px] uppercase tracking-[0.35em] text-cyan-300/90">
-              Smooth scroll · Real-time AI orchestration
+              AI automation, built and run by engineers
             </p>
             <p className="dala-landing__sub mt-5 text-base text-white/75 [text-shadow:0_1px_16px_rgba(0,0,0,0.85)] md:text-lg">
-              We architect custom AI-driven solutions and multi-agent workflows
-              that eliminate friction, scale operations, and turn manual
-              processes into a single intelligent ecosystem.
+              YJ Ventures designs lead, chat, and workflow automation that
+              captures every inquiry, qualifies it in seconds, and routes the
+              work, with a human in the loop wherever it counts. Most rollouts go
+              live in 1 to 2 weeks.
             </p>
             <div className="dala-landing__sub mt-8 flex flex-wrap gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center rounded-full bg-gradient-to-r from-[#2DD4BF] to-[#22D3EE] px-6 py-3 text-sm font-bold text-[#06121a] shadow-[0_0_24px_-6px_rgba(34,211,238,0.6)] transition-transform hover:scale-[1.02]"
               >
-                Build your roadmap
+                See what we&rsquo;d automate first
               </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center rounded-full border border-white/25 bg-black/30 px-6 py-3 text-sm font-bold text-white/90 backdrop-blur-sm transition-colors hover:border-cyan-300 hover:text-white"
               >
-                Talk to sales
+                Talk to an engineer
               </Link>
             </div>
 

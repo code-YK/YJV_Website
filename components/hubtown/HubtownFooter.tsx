@@ -90,8 +90,8 @@ export function HubtownFooter() {
             YJ VENTURES
           </Link>
           <p className="mt-6 max-w-xs text-sm text-hub-ink-muted">
-            AI-powered communication and automation that turns conversations
-            into customers — for businesses on five continents.
+            AI communication and automation that turns conversations into
+            customers, for businesses on five continents.
           </p>
           <ul className="mt-6 space-y-2">
             {REACH.map((l) => (
@@ -113,7 +113,7 @@ export function HubtownFooter() {
       <div className="mx-auto mt-16 flex w-full max-w-[1440px] flex-col items-start justify-between gap-4 border-t border-hub-rule px-5 pt-8 text-xs uppercase tracking-[0.22em] text-hub-ink-muted md:flex-row md:items-center md:px-12">
         <p>© {new Date().getFullYear()} YJ Ventures · All rights reserved</p>
         <p className="font-[family-name:var(--font-space-mono)]">
-          Built in Next.js · Crafted with care
+          Built by the engineers who maintain it
         </p>
       </div>
     </footer>

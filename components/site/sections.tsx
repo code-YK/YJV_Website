@@ -116,10 +116,10 @@ export function LeafHero({
  * pages (audit fix: no sales CTA on legal).
  */
 export function CtaBand({
-  title = "Ready to Transform Your Business?",
-  body = "Join hundreds of companies already using YJ Ventures to automate their workflows and accelerate growth.",
-  primary = { label: "Book a Free Demo", href: "/contact" },
-  secondary = { label: "Talk to Sales", href: "/contact" },
+  title = "Tell us what you're trying to ship.",
+  body = "Describe the process that's costing you the most time, and we'll tell you honestly whether automation fixes it, what it would take, and a rough timeline. One business day, no sales script.",
+  primary = { label: "See what we'd automate first", href: "/contact" },
+  secondary = { label: "Talk to an engineer", href: "/contact" },
 }: {
   title?: string;
   body?: string;

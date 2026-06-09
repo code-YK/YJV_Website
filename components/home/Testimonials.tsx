@@ -11,9 +11,9 @@ export function Testimonials() {
     <section className="relative isolate py-24 md:py-32" id="testimonials">
       <div className="mx-auto max-w-7xl px-6 md:px-8">
         <SectionHeading
-          eyebrow="Testimonials"
-          title="What clients say"
-          subtitle="Quotes are anonymised by default. Named case studies available on request."
+          eyebrow="Proof"
+          title="The bar our clients hold us to"
+          subtitle="Results from live deployments. Named references available on request."
         />
 
         <motion.ul

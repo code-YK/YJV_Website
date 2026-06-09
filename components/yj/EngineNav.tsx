@@ -26,6 +26,7 @@ interface MenuGroup {
 const MENUS: MenuGroup[] = [
   {
     label: "Solutions",
+    href: "/solutions",
     items: [
       { label: "Lead Automation", href: "/solutions/lead-automation" },
       { label: "Chat Automation", href: "/solutions/chat-automation" },
@@ -318,7 +319,7 @@ export function EngineNav() {
             </div>
             <div className="mt-1.5 flex items-center gap-1.5 font-[family-name:var(--font-space-mono)] text-[9px] uppercase tracking-[0.25em] text-emerald-400/90">
               <span className="h-1 w-1 animate-pulse rounded-full bg-emerald-400" />
-              System Status: Optimal
+              Trusted by 500+ teams
             </div>
           </Link>
 

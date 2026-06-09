@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const leaf = getPlatformLeaf(slug);
   if (!leaf) return {};
-  return pageMetadata(`${leaf.name} — Platform`, leaf.description, `/platform/${leaf.slug}`);
+  return pageMetadata(`${leaf.name}: Platform`, leaf.description, `/platform/${leaf.slug}`);
 }
 
 export default async function PlatformLeafPage({ params }: PageProps) {
@@ -38,7 +38,7 @@ export default async function PlatformLeafPage({ params }: PageProps) {
 
       <Section>
         <SectionHead
-          eyebrow={`${leaf.num} — Overview`}
+          eyebrow={`${leaf.num} · Overview`}
           title={
             <>
               Why {leaf.name.toLowerCase()}

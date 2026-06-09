@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const siteMetadata = {
-  title: "YJ Ventures — AI Automation & SaaS Development",
+  title: "YJ Ventures: AI Automation, Multi-Agent Workflows and Custom SaaS",
   description:
-    "We build AI-powered automation systems, custom SaaS products, and intelligent workflows that help businesses scale.",
+    "We build AI automation and multi-agent workflows that turn manual work into one intelligent system. Serving 9 industries across five continents. Book a demo.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://yjventures.in",
 };
 
@@ -12,7 +12,7 @@ export const siteMetadata = {
 export const rootMetadata: Metadata = {
   title: {
     default: siteMetadata.title,
-    template: "%s — YJ Ventures",
+    template: "%s | YJ Ventures",
   },
   description: siteMetadata.description,
   metadataBase: new URL(siteMetadata.url),

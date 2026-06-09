@@ -5,14 +5,16 @@ import { Section, SectionHead, Card } from "@/components/site/primitives";
 import {
   ABOUT_STORY,
   ABOUT_TODAY,
+  ABOUT_MISSION,
+  ABOUT_VISION,
   ABOUT_STATS,
   ABOUT_VALUES,
   ABOUT_TEAM,
 } from "@/lib/content/site/about";
 
 export const metadata: Metadata = pageMetadata(
-  "About",
-  "Empowering businesses through intelligent automation — the team and story behind YJ Ventures.",
+  "About: The Engineers Behind Your Automation",
+  "Founded in 2020, YJ Ventures grew from fixing slow WhatsApp replies to serving 500+ clients across five continents. Meet the founders who write the code.",
   "/about",
 );
 
@@ -21,8 +23,8 @@ export default function AboutPage() {
     <main>
       <LeafHero
         eyebrow="About"
-        title="Empowering Businesses Through Intelligent Automation"
-        description="We are on a mission to help businesses of all sizes harness the power of AI to work smarter, not harder."
+        title="We build automation you can trust to run unattended."
+        description="Most AI automation breaks the moment it meets real volume. We take the opposite approach: unify your context, deploy agents that reason over it, keep humans in the loop where the stakes are high, and evaluate everything from sprint one."
         primary={{ label: "Work with us", href: "/contact" }}
         secondary={{ label: "See our work", href: "/case-studies" }}
       />
@@ -30,6 +32,18 @@ export default function AboutPage() {
       <Section>
         <SectionHead eyebrow="Our story" title="How we got here." intro={ABOUT_STORY} />
         <p className="mt-5 max-w-3xl text-white/60">{ABOUT_TODAY}</p>
+      </Section>
+
+      <Section>
+        <SectionHead eyebrow="Why we exist" title="Mission and vision." />
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <Card title="Mission">
+            <p className="mt-2 text-white/65">{ABOUT_MISSION}</p>
+          </Card>
+          <Card title="Vision">
+            <p className="mt-2 text-white/65">{ABOUT_VISION}</p>
+          </Card>
+        </div>
       </Section>
 
       <Section>
@@ -51,7 +65,7 @@ export default function AboutPage() {
       <Section>
         <SectionHead
           eyebrow="Values"
-          title="Our Values"
+          title="What we actually hold to."
           intro="The principles that guide everything we do."
         />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -88,10 +102,10 @@ export default function AboutPage() {
       </Section>
 
       <CtaBand
-        title="Join Our Team"
-        body="We are always looking for talented individuals to join our mission."
-        primary={{ label: "View open positions", href: "/contact" }}
-        secondary={{ label: "Get in touch", href: "/contact" }}
+        title="Let's build something that lasts."
+        body="Tell us the process that's slowing your team down, and we'll show you what automating it would actually take. One business day, no sales script."
+        primary={{ label: "See what we'd automate first", href: "/contact" }}
+        secondary={{ label: "Talk to an engineer", href: "/contact" }}
       />
     </main>
   );

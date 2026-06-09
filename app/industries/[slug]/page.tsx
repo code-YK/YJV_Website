@@ -17,7 +17,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const ind = getIndustry(slug);
   if (!ind) return {};
-  return pageMetadata(ind.name, ind.description, `/industries/${ind.slug}`);
+  return pageMetadata(
+    ind.seoTitle ?? ind.name,
+    ind.seoDescription ?? ind.description,
+    `/industries/${ind.slug}`,
+  );
 }
 
 export default async function IndustryPage({ params }: PageProps) {
@@ -38,7 +42,7 @@ export default async function IndustryPage({ params }: PageProps) {
 
       <Section>
         <SectionHead
-          eyebrow={`${ind.num} — Overview`}
+          eyebrow={`${ind.num} · Overview`}
           title={
             <>
               Why {ind.name.toLowerCase()} teams{" "}
