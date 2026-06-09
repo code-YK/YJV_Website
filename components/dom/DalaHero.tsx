@@ -168,18 +168,21 @@ const STATS: { value: string; label: string }[] = [
   { value: "5", label: "Continents of clients" },
 ];
 
-const BLOCKS: { heading: string; body: string }[] = [
+const BLOCKS: { heading: string; body: string; align: "right" | "center" }[] = [
   {
     heading: "Your systems don't talk. Your team pays for it.",
     body: "Your tools, data, and decisions are scattered across a dozen platforms, and the answers your team needs sit buried in the gaps between them. Every handoff is a chance for something to get lost, and most of the time, something does. We connect those systems into a single context every AI agent can reason over, so the right information is always one question away.",
+    align: "right",
   },
   {
     heading: "One shared brain. Then the noise clears.",
     body: "Multi-agent workflows read that context, route the work, and act, with human-in-the-loop checkpoints wherever revenue, compliance, or reputation is on the line. The repetitive busywork fades into the background, and your people are left with the decisions that actually need judgment.",
+    align: "center",
   },
   {
     heading: "An ecosystem that compounds instead of cracking.",
     body: "What was manual, brittle, and slow becomes one intelligent system: observable, cost-aware, and evaluated from sprint one. It gets more capable as it learns your business, not more fragile as it grows.",
+    align: "right",
   },
 ];
 
@@ -258,13 +261,24 @@ export function DalaHero() {
           delay: 0.25,
         });
         for (const el of gsap.utils.toArray<HTMLElement>(".dala-reveal")) {
-          gsap.from(el, {
-            opacity: 0,
-            y: 60,
-            duration: 1,
-            ease: "expo.out",
-            scrollTrigger: { trigger: el, start: "top 80%" },
-          });
+          // Scrubbed fade: each card fades up as it enters, holds, then fades
+          // out as it leaves, for a smooth transition between morph beats.
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: el,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.8,
+              },
+            })
+            .fromTo(
+              el,
+              { autoAlpha: 0, y: 48 },
+              { autoAlpha: 1, y: 0, duration: 1, ease: "power2.out" },
+            )
+            .to(el, { autoAlpha: 1, duration: 1.4 })
+            .to(el, { autoAlpha: 0, y: -48, duration: 1, ease: "power2.in" });
         }
       }, root);
 
@@ -384,13 +398,23 @@ export function DalaHero() {
       {BLOCKS.map((block, i) => (
         <section
           key={i}
-          className="relative z-[2] flex min-h-screen items-center justify-center px-6 text-center"
+          className={`relative z-[2] flex min-h-screen items-center px-5 md:px-12 lg:px-20 ${
+            block.align === "center"
+              ? "justify-center"
+              : "justify-center md:justify-end"
+          }`}
         >
-          <div className="dala-reveal max-w-2xl">
-            <h2 className="mx-auto max-w-[18ch] font-[family-name:var(--font-space-grotesk)] text-3xl font-semibold leading-tight tracking-tight text-white [text-shadow:0_2px_30px_rgba(0,0,0,0.85)] md:text-5xl">
+          <div
+            className={`dala-reveal w-full rounded-2xl border border-white/10 bg-white/[0.05] p-7 shadow-[0_28px_70px_-24px_rgba(0,0,0,0.85)] backdrop-blur-md md:p-9 ${
+              block.align === "center"
+                ? "max-w-xl text-center"
+                : "max-w-md md:max-w-lg"
+            }`}
+          >
+            <h2 className="font-[family-name:var(--font-space-grotesk)] text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl">
               {block.heading}
             </h2>
-            <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-white/70 [text-shadow:0_1px_16px_rgba(0,0,0,0.9)] md:text-lg">
+            <p className="mt-5 text-[15px] leading-relaxed text-white/70 md:text-lg">
               {block.body}
             </p>
           </div>

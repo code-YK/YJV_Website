@@ -1,4 +1,4 @@
-import { Space_Grotesk, Inter, Space_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, Space_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { rootMetadata } from "@/lib/metadata";
@@ -31,6 +31,13 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata = rootMetadata;
 
 export default function RootLayout({
@@ -41,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable} ${outfit.variable} h-full antialiased`}
     >
       <head>
         <link

@@ -1,4 +1,5 @@
 import { DalaHero } from "@/components/dom/DalaHero";
+import { IsThisYou } from "@/components/home/IsThisYou";
 import { HomeSections } from "@/components/home/HomeSections";
 import { Testimonials } from "@/components/home/Testimonials";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -19,6 +20,7 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-x-0 -top-40 h-40 bg-gradient-to-b from-transparent to-hub-paper"
         />
+        <IsThisYou />
         <HomeSections />
         <Testimonials />
         <FinalCTA />
