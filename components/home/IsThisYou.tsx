@@ -4,9 +4,9 @@ import { useState } from "react";
 import {
   motion,
   useScroll,
-  useSpring,
   useTransform,
   useReducedMotion,
+  easeInOut,
   type MotionValue,
 } from "framer-motion";
 import {
@@ -45,7 +45,7 @@ const PAINS: Pain[] = [
     text: "High response times lose deals",
     placement: "top-start",
     offset: { mainAxis: 56, crossAxis: -120 },
-    range: [0.04, 0.14, 0.34, 0.44],
+    range: [0.05, 0.13, 0.24, 0.32],
     floatDur: 5.5,
     floatDelay: 0,
   },
@@ -53,7 +53,7 @@ const PAINS: Pain[] = [
     text: "Manual work piles up",
     placement: "top-end",
     offset: { mainAxis: 150, crossAxis: 120 },
-    range: [0.12, 0.22, 0.4, 0.5],
+    range: [0.17, 0.25, 0.36, 0.44],
     floatDur: 6.2,
     floatDelay: 0.4,
   },
@@ -61,7 +61,7 @@ const PAINS: Pain[] = [
     text: "Scaling support means scaling headcount",
     placement: "bottom-start",
     offset: { mainAxis: 150, crossAxis: -120 },
-    range: [0.46, 0.56, 0.74, 0.84],
+    range: [0.4, 0.48, 0.59, 0.67],
     floatDur: 5.8,
     floatDelay: 0.8,
   },
@@ -69,7 +69,7 @@ const PAINS: Pain[] = [
     text: "You need AI, but not sure where to start",
     placement: "bottom-end",
     offset: { mainAxis: 56, crossAxis: 120 },
-    range: [0.54, 0.64, 0.8, 0.9],
+    range: [0.52, 0.6, 0.7, 0.78],
     floatDur: 6.6,
     floatDelay: 1.2,
   },
@@ -135,16 +135,14 @@ function FloatingPain({
     elements: { reference, floating: floatingNode },
   });
 
-  // Hooks must run unconditionally; applied only when motion is on.
-  const [inStart, inEnd, outStart, outEnd] = pain.range;
-  const opacity = useTransform(progress, pain.range, [0, 1, 1, 0]);
-  // Gentle rise-in during the fade-in window, then settle. Smoothed by the
-  // parent spring so it eases rather than tracking scroll 1:1.
-  const revealY = useTransform(
-    progress,
-    [inStart, inEnd, outStart, outEnd],
-    [22, 0, 0, -10],
-  );
+  // Hooks must run unconditionally; applied only when motion is on. Eased
+  // mapping keeps the fade smooth even though it tracks scroll 1:1.
+  const opacity = useTransform(progress, pain.range, [0, 1, 1, 0], {
+    ease: easeInOut,
+  });
+  const revealY = useTransform(progress, pain.range, [22, 0, 0, -10], {
+    ease: easeInOut,
+  });
 
   return (
     <div ref={setFloatingNode} style={floatingStyles} className="z-[1] w-max">
@@ -181,21 +179,17 @@ export function IsThisYou() {
     offset: ["start start", "end end"],
   });
 
-  // Spring-smooth the raw scroll progress so the scrubbed reveal eases in and
-  // out instead of snapping with each Lenis scroll step.
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 70,
-    damping: 26,
-    mass: 0.5,
-    restDelta: 0.0005,
-  });
+  // Drive the reveal directly off scroll position (no spring lag) so every one
+  // of the four statements is guaranteed to display before the section unpins.
+  // Smoothness comes from eased transitions + the continuous float, not a lag.
+  const progress = scrollYProgress;
 
   return (
     <>
       {/* Desktop: tall section with a sticky (pinned) panel. */}
       <section
         ref={setSectionEl}
-        className="relative hidden h-[440vh] border-t border-white/[0.06] bg-hub-paper md:block"
+        className="relative hidden h-[340vh] border-t border-white/[0.06] bg-hub-paper md:block"
       >
         <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
           <div

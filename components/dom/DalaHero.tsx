@@ -405,7 +405,7 @@ export function DalaHero() {
           }`}
         >
           <div
-            className={`dala-reveal w-full rounded-2xl border border-white/10 bg-white/[0.05] p-7 shadow-[0_28px_70px_-24px_rgba(0,0,0,0.85)] backdrop-blur-md md:p-9 ${
+            className={`dala-reveal w-full rounded-2xl border border-white/10 bg-white/[0.05] p-7 shadow-[0_28px_70px_-24px_rgba(0,0,0,0.85)] backdrop-blur-md transition-[box-shadow,border-color] duration-300 hover:border-hub-accent/40 hover:shadow-[0_28px_70px_-24px_rgba(0,0,0,0.85),0_0_60px_-12px_rgba(34,211,238,0.5)] md:p-9 ${
               block.align === "center"
                 ? "max-w-xl text-center"
                 : "max-w-md md:max-w-lg"

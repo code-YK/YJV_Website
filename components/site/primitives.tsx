@@ -106,7 +106,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-hub-accent/40 ${className}`}
+      className={`rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-hub-accent/50 hover:shadow-[0_12px_44px_-12px_rgba(34,211,238,0.4)] ${className}`}
     >
       {title ? (
         <h3 className="font-[family-name:var(--font-space-grotesk)] text-lg font-semibold text-white">

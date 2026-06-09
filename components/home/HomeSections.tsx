@@ -109,14 +109,14 @@ export function HomeSections() {
               <Link
                 key={ind.name}
                 href={`/industries/${ind.slug}`}
-                className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm font-medium text-white/85 transition-colors hover:border-hub-accent/40 hover:text-white"
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm font-medium text-white/85 transition-[transform,box-shadow,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-hub-accent/50 hover:text-white hover:shadow-[0_10px_36px_-12px_rgba(34,211,238,0.35)]"
               >
                 {ind.name}
               </Link>
             ) : (
               <div
                 key={ind.name}
-                className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 text-sm font-medium text-white/70"
+                className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 text-sm font-medium text-white/70 transition-[box-shadow,border-color] duration-300 hover:border-hub-accent/40 hover:shadow-[0_10px_36px_-12px_rgba(34,211,238,0.3)]"
               >
                 {ind.name}
               </div>
